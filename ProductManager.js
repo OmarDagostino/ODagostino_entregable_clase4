@@ -8,10 +8,11 @@ const fs = require('fs');
 
 class ProductManager {
     constructor(filePath) {
-        this.products = [];
-        this.nextProductId = this.getNextProductId(); // obtencion del próximo ID a generar
+        this.products = []; 
         this.path = filePath; // direccion del archivo de productos
         this.loadProducts(); // llama al método para cargar los productos al inicio
+        this.nextProductId = this.getNextProductId(); // obtencion del próximo ID a generar
+        
     }
 
 // Método para cargar los productos desde el archivo al inicio
@@ -28,8 +29,8 @@ class ProductManager {
 // Método para obtener el próximo ID
 
     getNextProductId() {
-        if (this.products.length === 0) {
-            return 1; // Establecer el ID inicial si no hay productos en la lista
+        if (!fs.existsSync(this.path)) {
+            return 1; // Establecer el ID inicial si es la primera ejecucion y el archivo no existe
         }
 
         let highestId = 0;
@@ -41,6 +42,7 @@ class ProductManager {
         return highestId + 1;
     }
 
+
 // Creación del método addProduct 
 
     addProduct(
@@ -50,7 +52,8 @@ class ProductManager {
         thumbnail,
         code,
         stock
-    ) {
+        ) 
+        {
         if (!title || !description || !price || !thumbnail || !code || !stock) {
             console.error("Todos los campos son obligatorios.");
             return;
@@ -167,18 +170,18 @@ class ProductManager {
 
 // llamar al metodo “getProducts” y debe devolver un arreglo vacío 
   
-  productManager.getProducts()
-  console.log (productManager.products)
+  productManager.getProducts();
+  console.log (productManager.products);
   
 // agregado del producto de prueba 
   
-  productManager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25)
-  productManager.getProducts()
-  console.log (productManager.products)
+  productManager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
+  productManager.getProducts();
+  console.log (productManager.products);
 
 // intento de agregar el mismo producto por segunda vez
   
-  productManager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25)
+  productManager.addProduct("producto prueba", "Este es un producto prueba", 200, "sin imagen", "abc123", 25);
   
   
 // pruebas del metodo getProductById 
@@ -196,16 +199,16 @@ productManager.addProduct("producto prueba 2", "Este es un producto prueba 2", 3
 productManager.addProduct("producto prueba 3", "Este es un producto prueba 3", 400, "sin imagen", "jkl789", 70);
 productManager.addProduct("producto prueba 4", "Este es un producto prueba 4", 500, "sin imagen", "mno147", 90);
 
-console.table (productManager.products)
+console.table (productManager.products);
 
 // prueba del método updateProduct
 
-productManager.updateProduct(2,'nuevotitulo','nueva descripcion', 1000, "todavia no hay imagenes",null,500)
-console.table (productManager.products)  
+productManager.updateProduct(2,'nuevotitulo','nueva descripcion', 1000, "todavia no hay imagenes",null,500);
+console.table (productManager.products);  
 
 // prueba del método deleteProduct
 
-productManager.deleteProduct (3) // producto debe existir
-productManager.deleteProduct (7) // producto inexistente
+productManager.deleteProduct (3); // producto debe existir
+productManager.deleteProduct (7); // producto inexistente
 
-console.table (productManager.products)
+console.table (productManager.products); 
