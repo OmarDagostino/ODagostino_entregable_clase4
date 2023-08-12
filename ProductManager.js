@@ -114,7 +114,7 @@ class ProductManager {
         }
 
         // Actualiza solo los campos que se han recibido con datos
-        if (titulo != null) {
+/*      if (titulo != null) {
             product.title = titulo;
         }
         if (descripcion != null) {
@@ -132,16 +132,26 @@ class ProductManager {
         if (existencia != null) {
             product.stock = existencia;
         }
+*/
+// product = this.products[id];
+
+    product.title = titulo || product.title;
+    product.description = descripcion || product.description;
+    product.price = precio || product.price;
+    product.thumbnail = imagen || product.thumbnail;
+    product.code = codigo || product.code;
+    product.stock = existencia || product.stock;
 
         this.saveProducts(); // Llama al método para guardar los productos en el archivo
         console.log(product, `Se actualizó en la id ${id}`);
         return product;
     }
 
+
 // creación del Método para guardar los productos en el archivo
 
     saveProducts() {
-        const myJSON = JSON.stringify(this.products);
+        const myJSON = JSON.stringify(this.products,null,'\t');
         fs.writeFileSync(this.path, myJSON);
     }
 
